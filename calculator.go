@@ -43,6 +43,7 @@ type result struct {
 	Num int `json:"num"`
 }
 
+// Calculator Consumes commands, updates inner number and writes results in commandsTopic
 type Calculator struct {
 	OperationConsumer sarama.Consumer
 	ResultExporter    sarama.SyncProducer
@@ -139,6 +140,7 @@ func (c *Calculator) consumeCommand(msg *sarama.ConsumerMessage) error {
 	return nil
 }
 
+// Producer thread that each second publishes the same command to the calculator
 func produceCommands(broker []string, produceTopic string, producePartition int32) {
 	producer, err := sarama.NewSyncProducer(broker, nil)
 	if err != nil {
@@ -175,6 +177,7 @@ ProducerLoop:
 	}
 }
 
+// consumer thread that just reads results from the output topic and prints it out to std output
 func consumeResults(broker []string, produceTopic string, producePartition int32) {
 	consumer, err := sarama.NewConsumer(broker, nil)
 	if err != nil {
