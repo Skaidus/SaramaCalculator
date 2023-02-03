@@ -10,21 +10,6 @@ import (
 	"time"
 )
 
-/*
-	values/
-	commands/
-
-	producer 1: add random operation to commands/
-	consumer 1: get command, apply it and put result
-	consumer 2: get result and print it
-
-init producer
-init consumer 1
-init consumer 2
-suscribe consumer 1 to topic
-suscribe consume
-*/
-
 type op int
 
 const (
